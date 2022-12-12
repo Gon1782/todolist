@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
+button {
+  cursor: pointer;
+  width: 8rem;
+  height: 3rem;
+  border: 1px solid rgba(0 0 0/10%);
+  border-radius: 1rem;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.layout {
+  margin: 0 auto;
+  max-width: 1046px;
+  min-width: 800px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header {
+  display: flex;
+  justify-content: center;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0 0 0/10%);
+  height: 100px;
+  margin: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border: 1px solid rgba(0 0 0/10%);
+  border-radius: 1rem;
+}
+.textArea {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.label {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.textInput {
+  width: 20rem;
+  height: 1.8rem;
+  border: 1px solid white;
+  border-radius: 1rem;
+}
+.list-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.list-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.list-box {
+  padding: 2rem;
+  background: white;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+.btns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.container {
+  border: 2px solid rgb(238, 238, 238);
+  width: 100%;
+  height: 100vh;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
-
-.App-link {
-  color: #61dafb;
+.box {
+  width: 600px;
+  height: 400px;
+  border: 1px solid rgb(238, 238, 238);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.id_box {
+  display: flex;
+  justify-content: space-between;
 }
