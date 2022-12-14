@@ -1,7 +1,8 @@
 import React from "react";
 import "../App.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
+import { StBtn } from "../style/styled-components";
 
 const List = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const List = () => {
         <div>
           <div className="id_box">
             <div>ID : {list.id}</div>
-            <button onClick={() => navigate("/")}>이전으로</button>
+            <StBtn onClick={() => navigate("/")}>이전으로</StBtn>
           </div>
           <h1>{list.title}</h1>
           <div>{list.desc}</div>

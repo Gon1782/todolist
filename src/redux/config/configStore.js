@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from "redux";
 import todolists from "../modules/todolist";
+import modal from "../modules/modal";
 
 /*
 1. createStore()
@@ -17,6 +18,7 @@ combineReducers은 여러 개의 독립적인 reducer의 반환 값을 하나의
 
 const rootReducer = combineReducers({
   todolists: todolists,
+  modal: modal,
 });
 const store = createStore(rootReducer);
 
