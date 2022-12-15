@@ -41,7 +41,7 @@ const ToDoList = ({ isActive }) => {
                   <StBtn background="red" color="white" onClick={() => showModalHandler(list.id)}>
                     삭제하기
                   </StBtn>
-                  <StBtn background={list.isDone ? "gray" : "green"} color="white" onClick={() => onChange(list.id)}>
+                  <StBtn background={list.isDone ? "orange" : "green"} color={list.isDone ? "black" : "white"} onClick={() => onChange(list.id)}>
                     {list.isDone ? "취소" : "완료"}
                   </StBtn>
                 </div>

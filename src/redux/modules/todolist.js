@@ -1,6 +1,7 @@
 const ADD_LIST = "ADD_LIST";
 const DELETE_LIST = "DELETE_LIST";
 const CHANGE_LIST = "CHANGE_LIST";
+const PLUS_COUNT = "PLUS_COUNT";
 
 export const addList = (payload) => {
   return {
@@ -23,6 +24,13 @@ export const changeList = (payload) => {
   };
 };
 
+export const plusCount = (payload) => {
+  return {
+    type: PLUS_COUNT,
+    payload,
+  };
+};
+
 const initialState = {
   lists: [
     {
@@ -38,6 +46,7 @@ const initialState = {
       isDone: true,
     },
   ],
+  number: 3,
 };
 
 const todolists = (state = initialState, action) => {
@@ -62,6 +71,11 @@ const todolists = (state = initialState, action) => {
             return { ...list };
           }
         }),
+      };
+    case PLUS_COUNT:
+      return {
+        ...state,
+        number: state.number + action.payload,
       };
     default:
       return state;

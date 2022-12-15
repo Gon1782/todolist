@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../../App.css";
-import { addList } from "../../redux/modules/todolist";
+import { addList, plusCount } from "../../redux/modules/todolist";
 import { StBtn } from '../../style/styled-components';
 
 const Form = () => {
   const dispatch = useDispatch();
+  const number = useSelector((state) => state.todolists.number)
 
   const [list, setList] = useState({
     id: 0,
@@ -13,7 +14,6 @@ const Form = () => {
     desc: "",
     isDone: false,
   });
-  const [count, setCount] = useState(3)
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -26,8 +26,8 @@ const Form = () => {
       alert("제목과 내용을 입력해주세요.")
       return;
     }
-    dispatch(addList({ ...list, id: count }));
-    setCount(count+1);
+    dispatch(addList({ ...list, id: number }));
+    dispatch(plusCount(1))
     setList({
       id: 0,
       title: "",
@@ -44,7 +44,7 @@ const Form = () => {
         <label className="label">내용</label>
         <input type="text" name="desc" className="textInput" onChange={onChangeHandler} value={list.desc} />
       </div>
-      <StBtn>추가하기</StBtn>
+      <StBtn background="orange">추가하기</StBtn>
     </form>
   );
 };
