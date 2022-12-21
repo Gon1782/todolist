@@ -6,8 +6,9 @@ import { StBtn } from "../style/styled-components";
 
 const List = () => {
   const navigate = useNavigate();
+  
   const param = useParams();
-  const lists = useSelector((state) => state.todolists.lists);
+  const lists = useSelector((state) => state.todos.lists);
   // eslint-disable-next-line eqeqeq
   const list = lists.find((list) => list.id == param.id);
   return (
