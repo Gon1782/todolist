@@ -1,15 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../App.css";
-import { changeList } from "../../redux/modules/todolist";
 import { Link } from "react-router-dom";
 import { StBtn } from "../../style/styled-components";
 import Modal from "../modal/modal";
-import { showModal } from "../../redux/modules/modal";
+import { changeList } from '../../redux/modules/todoSlice';
+import { showModal } from '../../redux/modules/modalSlice';
 
 const ToDoList = ({ isActive }) => {
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.todolists.lists);
+  const lists = useSelector((state) => state.todos.lists);
   const modal = useSelector((state) => state.modal);
 
   const onChange = (id) => {

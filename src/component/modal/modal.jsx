@@ -2,21 +2,21 @@ import React from "react";
 import "./modal.css";
 import { useDispatch,useSelector } from "react-redux";
 import { StBtn } from "../../style/styled-components";
-import { deleteList } from '../../redux/modules/todolist';
-import { hideModal } from '../../redux/modules/modal';
+import { deleteList } from '../../redux/modules/todoSlice';
+import { hideModal } from '../../redux/modules/modalSlice';
 
 const Modal = () => {
   const dispatch = useDispatch();
   const modalId = useSelector((state) => state.modal.modalId);
 
-  const closeModalIfClickOutside = (e) => {
-    if (e.target === e.currentTarget) {
-      dispatch(hideModal());
-    }
-  }
-
   const closeModalHandler = () => {
     dispatch(hideModal())
+  }
+
+  const closeModalIfClickOutside = (e) => {
+    if (e.target === e.currentTarget) {
+      closeModalHandler();
+    }
   }
 
   const onDelete = (id) => {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../App.css";
-import { addList, plusCount } from "../../redux/modules/todolist";
+import { addList, plusNumbers } from '../../redux/modules/todoSlice';
 import { StBtn } from '../../style/styled-components';
 
 const Form = () => {
   const dispatch = useDispatch();
-  const number = useSelector((state) => state.todolists.number)
+  const number = useSelector((state) => state.todos.number)
 
   const [list, setList] = useState({
     id: 0,
@@ -27,7 +27,7 @@ const Form = () => {
       return;
     }
     dispatch(addList({ ...list, id: number }));
-    dispatch(plusCount(1))
+    dispatch(plusNumbers(1))
     setList({
       id: 0,
       title: "",
