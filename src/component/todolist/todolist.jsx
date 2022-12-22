@@ -1,30 +1,51 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../App.css";
-import { changeList } from "../../redux/modules/todolist";
 import { Link } from "react-router-dom";
 import { StBtn } from "../../style/styled-components";
 import Modal from "../modal/modal";
-import { showModal } from "../../redux/modules/modal";
+import { showModal } from "../../redux/modules/modalSlice";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { changeList, getLists } from "../../api/api";
 
 const ToDoList = ({ isActive }) => {
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.todolists.lists);
+  const queryClient = useQueryClient();
   const modal = useSelector((state) => state.modal);
 
-  const onChange = (id) => {
-    dispatch(changeList(id));
+  const changeMutation = useMutation(changeList,{
+    onSuccess: () => {
+      queryClient.invalidateQueries("lists");
+    },
+  });
+
+  const onChange = (id, edit) => {
+    changeList(id, edit)
+    changeMutation.mutate(id, edit);
   };
 
   const showModalHandler = (id) => {
     dispatch(showModal(id));
   };
 
+  const { isLoading, isError, data, error } = useQuery("lists", getLists, {
+    refetchOnWindowFocus: false,
+    retry: 0,
+  });
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+
   return (
     <div className="list-container">
       <h2 className="list-title">{isActive === true ? "해야 할 일" : "완료한 일"}</h2>
       <div className="list-wrap">
-        {lists
+        {data
           .filter((list) => list.isDone === !isActive)
           .map((list) => {
             return (
@@ -41,7 +62,7 @@ const ToDoList = ({ isActive }) => {
                   <StBtn background="red" color="white" onClick={() => showModalHandler(list.id)}>
                     삭제하기
                   </StBtn>
-                  <StBtn background={list.isDone ? "orange" : "green"} color={list.isDone ? "black" : "white"} onClick={() => onChange(list.id)}>
+                  <StBtn background={list.isDone ? "orange" : "green"} color={list.isDone ? "black" : "white"} onClick={() => onChange(list.id, { isDone: !list.isDone })}>
                     {list.isDone ? "취소" : "완료"}
                   </StBtn>
                 </div>

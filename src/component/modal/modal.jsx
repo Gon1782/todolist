@@ -2,25 +2,33 @@ import React from "react";
 import "./modal.css";
 import { useDispatch,useSelector } from "react-redux";
 import { StBtn } from "../../style/styled-components";
-import { deleteList } from '../../redux/modules/todolist';
-import { hideModal } from '../../redux/modules/modal';
+import { hideModal } from '../../redux/modules/modalSlice';
+import { useMutation, useQueryClient } from 'react-query';
+import { deleteLists } from '../../api/api';
 
 const Modal = () => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const modalId = useSelector((state) => state.modal.modalId);
 
-  const closeModalIfClickOutside = (e) => {
-    if (e.target === e.currentTarget) {
-      dispatch(hideModal());
+  const deleteMutation = useMutation(deleteLists, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("lists")
     }
-  }
+  });
 
   const closeModalHandler = () => {
     dispatch(hideModal())
   }
 
+  const closeModalIfClickOutside = (e) => {
+    if (e.target === e.currentTarget) {
+      closeModalHandler();
+    }
+  }
+
   const onDelete = (id) => {
-    dispatch(deleteList(id));
+    deleteMutation.mutate(id);
   };
 
   return (

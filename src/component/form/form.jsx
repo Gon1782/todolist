@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "../../App.css";
-import { addList, plusCount } from "../../redux/modules/todolist";
 import { StBtn } from '../../style/styled-components';
+import { useQueryClient, useMutation } from 'react-query';
+import { postLists } from '../../api/api';
 
 const Form = () => {
-  const dispatch = useDispatch();
-  const number = useSelector((state) => state.todolists.number)
+  const queryClient = useQueryClient();
+
+  const listsMutation = useMutation(postLists, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("lists")
+    }
+  });
 
   const [list, setList] = useState({
     id: 0,
@@ -26,8 +31,7 @@ const Form = () => {
       alert("제목과 내용을 입력해주세요.")
       return;
     }
-    dispatch(addList({ ...list, id: number }));
-    dispatch(plusCount(1))
+    listsMutation.mutate({...list})
     setList({
       id: 0,
       title: "",
