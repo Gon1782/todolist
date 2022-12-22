@@ -1,16 +1,20 @@
 import React from "react";
 import "../App.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { StBtn } from "../style/styled-components";
+import { useQuery } from 'react-query';
+import { getLists } from '../api/api';
 
 const List = () => {
   const navigate = useNavigate();
   
   const param = useParams();
-  const lists = useSelector((state) => state.todos.lists);
-  // eslint-disable-next-line eqeqeq
-  const list = lists.find((list) => list.id == param.id);
+  const { data } = useQuery("lists", getLists, {
+    refetchOnWindowFocus: false,
+    retry: 0,
+  });
+
+  const list = data.find((list) => list.id === Number(param.id));
   return (
     <div className="container">
       <div className="box">
