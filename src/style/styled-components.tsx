@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StBtn = styled.button`
+export const StBtn = styled.button<{ background?: string; color?: string }>`
   cursor: pointer;
   font-size: 1rem;
   width: 8rem;
