@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../App.css";
-import { StBtn } from '../../style/styled-components';
-import { useQueryClient, useMutation } from 'react-query';
-import { postLists } from '../../api/api';
+import { StBtn } from "../../style/styled-components";
+import { useQueryClient, useMutation } from "react-query";
+import { postLists } from "../../api/api";
 
 const Form = () => {
   const queryClient = useQueryClient();
 
   const listsMutation = useMutation(postLists, {
     onSuccess: () => {
-      queryClient.invalidateQueries("lists")
-    }
+      queryClient.invalidateQueries("lists");
+    },
   });
 
   const [list, setList] = useState({
@@ -20,18 +20,18 @@ const Form = () => {
     isDone: false,
   });
 
-  const onChangeHandler = (event) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setList({ ...list, [name]: value });
   };
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (list.title.trim() === "" || list.desc.trim() === "") {
-      alert("제목과 내용을 입력해주세요.")
+      alert("제목과 내용을 입력해주세요.");
       return;
     }
-    listsMutation.mutate({...list})
+    listsMutation.mutate({ ...list });
     setList({
       id: 0,
       title: "",

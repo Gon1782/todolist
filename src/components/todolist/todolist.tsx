@@ -1,34 +1,29 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "../../App.css";
 import { Link } from "react-router-dom";
 import { StBtn } from "../../style/styled-components";
 import Modal from "../modal/modal";
 import { showModal } from "../../redux/modules/modalSlice";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { changeList, getLists } from "../../api/api";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+import { EachList, IsActive } from '../../types/interface';
 
-const ToDoList = ({ isActive }) => {
-  const dispatch = useDispatch();
+const ToDoList = ({ isActive }: IsActive) => {
+  const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
-  const modal = useSelector((state) => state.modal);
+  const modal = useAppSelector((state) => state.modal);
 
-  const changeMutation = useMutation(changeList,{
-    onSuccess: () => {
+  const onChange = (id: number, edit: EachList) => {
+    changeList(id, edit).then(() => {
       queryClient.invalidateQueries("lists");
-    },
-  });
-
-  const onChange = (id, edit) => {
-    changeList(id, edit)
-    changeMutation.mutate(id, edit);
+    });
   };
 
-  const showModalHandler = (id) => {
+  const showModalHandler = (id: number) => {
     dispatch(showModal(id));
   };
 
-  const { isLoading, isError, data, error } = useQuery("lists", getLists, {
+  const { isLoading, isError, data, error } = useQuery<EachList[], Error, EachList[]>("lists", getLists, {
     refetchOnWindowFocus: false,
     retry: 0,
   });
@@ -46,8 +41,8 @@ const ToDoList = ({ isActive }) => {
       <h2 className="list-title">{isActive === true ? "해야 할 일" : "완료한 일"}</h2>
       <div className="list-wrap">
         {data
-          .filter((list) => list.isDone === !isActive)
-          .map((list) => {
+          ?.filter((list: EachList) => list.isDone === !isActive)
+          .map((list: EachList) => {
             return (
               <div className="list-box" key={list.id}>
                 <div className="list-header">
@@ -62,7 +57,7 @@ const ToDoList = ({ isActive }) => {
                   <StBtn background="red" color="white" onClick={() => showModalHandler(list.id)}>
                     삭제하기
                   </StBtn>
-                  <StBtn background={list.isDone ? "orange" : "green"} color={list.isDone ? "black" : "white"} onClick={() => onChange(list.id, { isDone: !list.isDone })}>
+                  <StBtn background={list.isDone ? "orange" : "green"} color={list.isDone ? "black" : "white"} onClick={() => onChange(list.id, { ...list, isDone: !list.isDone })}>
                     {list.isDone ? "취소" : "완료"}
                   </StBtn>
                 </div>

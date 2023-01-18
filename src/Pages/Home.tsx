@@ -1,8 +1,7 @@
-import React from "react";
 import "../App.css"
-import Header from "../component/header/header"
-import Form from "../component/form/form"
-import ToDoList from "../component/todolist/todolist"
+import Header from "../components/header/header"
+import Form from "../components/form/form"
+import ToDoList from "../components/todolist/todolist"
 
 const Home = () => {
   return (

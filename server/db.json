@@ -11,18 +11,6 @@
       "title": "저거해야함",
       "desc": "저거는 저렇고 이거는 이렇고",
       "isDone": true
-    },
-    {
-      "id": 4,
-      "title": "asdfasdfas",
-      "desc": "dfasdf",
-      "isDone": false
-    },
-    {
-      "id": 7,
-      "title": "asfsaef",
-      "desc": "asefasef",
-      "isDone": true
     }
   ]
 }
