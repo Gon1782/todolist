@@ -1,4 +1,3 @@
-import React from "react";
 import "../App.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from 'react-query';
@@ -16,7 +15,7 @@ const List = () => {
   });
 
   const list = data?.find((list: EachList) => list.id === Number(param.id));
-  
+
   return (
     <div className="container">
       <div className="box">

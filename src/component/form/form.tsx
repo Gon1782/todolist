@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../App.css";
 import { StBtn } from "../../style/styled-components";
 import { useQueryClient, useMutation } from "react-query";

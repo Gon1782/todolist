@@ -1,4 +1,3 @@
-import React from "react";
 import "../App.css"
 import Header from "../component/header/header"
 import Form from "../component/form/form"
