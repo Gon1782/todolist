@@ -5,6 +5,11 @@ export interface EachList {
   isDone: boolean;
 }
 
+export interface Request {
+  id: number;
+  edit: EachList;
+}
+
 export interface IsActive {
   isActive: boolean;
 }

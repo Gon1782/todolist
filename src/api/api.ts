@@ -1,5 +1,5 @@
 import axios from "axios";
-import { EachList } from "../types/interface";
+import { EachList, Request } from "../types/interface";
 
 const SERVER_ADDRESS = "https://brook-tender-dinosaur.glitch.me/lists";
 
@@ -16,6 +16,6 @@ export const deleteLists = (listId: number) => {
   return axios.delete(`${SERVER_ADDRESS}/${listId}`);
 };
 
-export const changeList = async (listId: number, edit: EachList) => {
-  return await axios.patch(`${SERVER_ADDRESS}/${listId}`, edit);
+export const changeList = async ({ id, edit }: Request) => {
+  return await axios.patch(`${SERVER_ADDRESS}/${id}`, edit);
 };
