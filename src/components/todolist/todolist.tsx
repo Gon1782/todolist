@@ -3,30 +3,31 @@ import { Link } from "react-router-dom";
 import { StBtn } from "../../style/styled-components";
 import Modal from "../modal/modal";
 import { showModal } from "../../redux/modules/modalSlice";
-import { useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { changeList, getLists } from "../../api/api";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
-import { EachList, IsActive } from '../../types/interface';
+import { EachList, IsActive } from "../../types/interface";
 
 const ToDoList = ({ isActive }: IsActive) => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const modal = useAppSelector((state) => state.modal);
 
-  const onChange = (id: number, edit: EachList) => {
-    changeList(id, edit).then(() => {
+  const changeMutation = useMutation(changeList, {
+    onSuccess: () => {
       queryClient.invalidateQueries("lists");
-    });
+    },
+  });
+
+  const onChange = (id: number, edit: EachList) => {
+    changeMutation.mutate({ id, edit });
   };
 
   const showModalHandler = (id: number) => {
     dispatch(showModal(id));
   };
 
-  const { isLoading, isError, data, error } = useQuery<EachList[], Error, EachList[]>("lists", getLists, {
-    refetchOnWindowFocus: false,
-    retry: 0,
-  });
+  const { isLoading, isError, data, error } = useQuery<EachList[], Error>("lists", getLists);
 
   if (isLoading) {
     return <span>Loading...</span>;
